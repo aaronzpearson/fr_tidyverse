@@ -8,7 +8,7 @@ en_to_fr <- function(script) {
   }
 }
 
-fr_a_an <- en_to_fr <- function(script) {
+fr_a_an <- function(script) {
   for(i in 1:nrow(fr_dplyr)) {
     
     pattern <- regex(str_c("^", as.character(df$col_1[i]), "$"))
