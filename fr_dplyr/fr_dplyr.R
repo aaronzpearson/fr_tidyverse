@@ -1,24 +1,54 @@
+
+# Load English and French Terms --------------------------------------------------------------------------------------------------
+
+fr_dplyr <- readRDS("fr_dplyr.RDS")
+
+# Translation Functions ----------------------------------------------------------------------------------------------------------
+
 en_to_fr <- function(script) {
+  
+  message("Requires: \n stringr package \n fr_dplyr.rds file loaded as fr_dplyr \n\n Ignore this message if stringr and fr_dplyr are loaded")
+  message("The `script` argument requires your .R script saved as a string")
+  require(stringr)
+  
+  fr_dplyr <- readRDS("fr_dplyr.RDS")
+  
   for(i in 1:nrow(fr_dplyr)) {
   
-  pattern <- regex(str_c("^", as.character(df$col_3[i]), "$"))
-  replacement <- (as.character(df$col_1[i]))
+  pattern <- fr_dplyr$english[i]
+  replacement <- fr_dplyr$french[i]
   
-  sentence <- str_replace_all(script, pattern, replacement)
+  script <- str_replace_all(script, pattern, replacement)
   }
+  
+  script <- str_remove_all(script, "\n")
+  return(script)
 }
+
+
 
 fr_a_an <- function(script) {
+  
+  message("Requires: \n stringr package \n fr_dplyr.rds file loaded as fr_dplyr \n\n Ignore this message if stringr and fr_dplyr are loaded")
+  message("The `script` argument requires your .R script saved as a string")
+  require(stringr)
+  
+  fr_dplyr <- readRDS("fr_dplyr.RDS")
+  
   for(i in 1:nrow(fr_dplyr)) {
     
-    pattern <- regex(str_c("^", as.character(df$col_1[i]), "$"))
-    replacement <- (as.character(df$col_3[i]))
+    pattern <- fr_dplyr$french[i]
+    replacement <- fr_dplyr$english[i]
     
-    sentence <- str_replace_all(script, pattern, replacement)
+    script <- str_replace_all(script, pattern, replacement)
   }
+  
+  script <- str_remove_all(script, "\n")
+  return(script)
 }
 
-# English to French -------------------------------------------------------
+
+# English to French --------------------------------------------------------------------------------------------------------------
 
 valeur	<-	value
 travers	<-	across
@@ -85,7 +115,6 @@ groupe_par	<-	grouped
 groupes	<-	groups
 id	<-	id
 ident	<-	ident
-si	<-	if
 interne	<-	inner
 couper	<-	intersect
 est.groupepar	<-	is.grouped
